@@ -1,17 +1,17 @@
 pub mod input;
 pub use input::*;
 
-pub fn run_part1() -> u64 {
+pub fn run_part1() -> i64 {
     part1(INPUT_1)
 }
-pub fn run_part2() -> u64 {
+pub fn run_part2() -> i64 {
     part2(INPUT_2)
 }
-pub fn run_part3() -> u64 {
+pub fn run_part3() -> i64 {
     part3(INPUT_3)
 }
 
-pub fn part1(input: &str) -> u64 {
+pub fn part1(input: &str) -> i64 {
     input.chars().fold(0, |acc, letter| {
         acc + match letter {
             'A' => 0,
@@ -22,16 +22,13 @@ pub fn part1(input: &str) -> u64 {
     })
 }
 
-pub fn part2(input: &str) -> u64 {
+pub fn part2(input: &str) -> i64 {
     input
         .chars()
         .collect::<Vec<_>>()
         .chunks(2)
         .fold(0, |acc, letters| {
-            let mut bonus = 0;
-            if !letters.contains(&'x') {
-                bonus += 2;
-            }
+            let bonus = if !letters.contains(&'x') { 2 } else { 0 };
             acc + bonus
                 + match letters[0] {
                     'A' | 'x' => 0,
@@ -40,32 +37,23 @@ pub fn part2(input: &str) -> u64 {
                     'D' => 5,
                     x => unreachable!("'{x}'"),
                 }
-                + if letters.len() == 2 {
-                    match letters[1] {
-                        'A' | 'x' => 0,
-                        'B' => 1,
-                        'C' => 3,
-                        'D' => 5,
-                        x => unreachable!("'{x}'"),
-                    }
-                } else {
-                    0
+                + match letters.get(1) {
+                    None | Some('A') | Some('x') => 0,
+                    Some('B') => 1,
+                    Some('C') => 3,
+                    Some('D') => 5,
+                    x => unreachable!("'{x:?}'"),
                 }
         })
 }
 
-pub fn part3(input: &str) -> u64 {
+pub fn part3(input: &str) -> i64 {
     input
         .chars()
         .collect::<Vec<_>>()
         .chunks(3)
         .fold(0, |acc, letters| {
-            let bonus = match letters
-                .iter()
-                .filter(|l| *l == &'x')
-                .collect::<Vec<_>>()
-                .len()
-            {
+            let bonus = match letters.iter().filter(|l| *l == &'x').count() {
                 3 => 0,
                 2 => 0,
                 1 => 2,
@@ -80,27 +68,19 @@ pub fn part3(input: &str) -> u64 {
                     'D' => 5,
                     x => unreachable!("'{x}'"),
                 }
-                + if letters.len() >= 2 {
-                    match letters[1] {
-                        'A' | 'x' => 0,
-                        'B' => 1,
-                        'C' => 3,
-                        'D' => 5,
-                        x => unreachable!("'{x}'"),
-                    }
-                } else {
-                    0
+                + match letters[1] {
+                    'A' | 'x' => 0,
+                    'B' => 1,
+                    'C' => 3,
+                    'D' => 5,
+                    x => unreachable!("'{x}'"),
                 }
-                + if letters.len() >= 3 {
-                    match letters[2] {
-                        'A' | 'x' => 0,
-                        'B' => 1,
-                        'C' => 3,
-                        'D' => 5,
-                        x => unreachable!("'{x}'"),
-                    }
-                } else {
-                    0
+                + match letters.get(2) {
+                    None | Some('A') | Some('x') => 0,
+                    Some('B') => 1,
+                    Some('C') => 3,
+                    Some('D') => 5,
+                    x => unreachable!("'{x:?}'"),
                 }
         })
 }
