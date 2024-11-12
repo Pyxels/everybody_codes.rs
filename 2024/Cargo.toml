@@ -1,6 +1,11 @@
 [package]
-name = "everybody-codes"
+name = "everybody_codes"
 version = "0.1.0"
 edition = "2021"
 
-[dependencies]
+[dev-dependencies]
+brunch = "0.6"
+
+[[bench]]
+name = "all_days"
+harness = false

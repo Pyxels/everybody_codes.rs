@@ -3,5 +3,30 @@
 version = 3
 
 [[package]]
-name = "everybody-codes"
+name = "brunch"
+version = "0.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c659a522e369b21453bdacfa6960074ee708891adcab1215dfffb537edfe66a5"
+dependencies = [
+ "dactyl",
+ "unicode-width",
+]
+
+[[package]]
+name = "dactyl"
+version = "0.7.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7ecad1ab94b1336be6cff409436ad9ceedb0afd52a85d54132189c2c3babb049"
+
+[[package]]
+name = "everybody_codes"
 version = "0.1.0"
+dependencies = [
+ "brunch",
+]
+
+[[package]]
+name = "unicode-width"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1fc81956842c57dac11422a97c3b8195a1ff727f06e85c84ed2e8aa277c9a0fd"
