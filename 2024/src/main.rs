@@ -1,8 +1,19 @@
 use everybody_codes::*;
 
+macro_rules! run_day_parts {
+    ($day_mod:ident: $($part_fn:ident),*) => {
+        $(
+            println!(
+                "{}::{}: {}",
+                stringify!($day_mod),
+                stringify!($part_fn),
+                $day_mod::$part_fn()
+            );
+        )*
+        println!();
+    };
+}
+
 fn main() {
-    println!("day01::part1: {}", day01::part1(day01::INPUT_1));
-    println!("day01::part2: {}", day01::part2(day01::INPUT_2));
-    println!("day01::part3: {}", day01::part3(day01::INPUT_3));
-    println!();
+    run_day_parts!(day01: run_part1, run_part2, run_part3);
 }

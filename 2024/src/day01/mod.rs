@@ -1,6 +1,16 @@
 pub mod input;
 pub use input::*;
 
+pub fn run_part1() -> u64 {
+    part1(INPUT_1)
+}
+pub fn run_part2() -> u64 {
+    part2(INPUT_2)
+}
+pub fn run_part3() -> u64 {
+    part3(INPUT_3)
+}
+
 pub fn part1(input: &str) -> u64 {
     input.chars().fold(0, |acc, letter| {
         acc + match letter {
