@@ -1,16 +1,22 @@
 use brunch::{benches, Bench};
 
-use everybody_codes::day01;
+use everybody_codes::*;
 
-benches!(
-    Bench::new("day01::part1")
-        .with_samples(10_000)
-        .run(|| day01::part1(day01::INPUT_1)),
-    Bench::new("day01::part2")
-        .with_samples(10_000)
-        .run(|| day01::part2(day01::INPUT_2)),
-    Bench::new("day01::part3")
-        .with_samples(10_000)
-        .run(|| day01::part3(day01::INPUT_2)),
-    Bench::spacer(),
-);
+macro_rules! bench_day_parts {
+    ($($day_mod:ident: $samples:expr => $($part_fn:ident),*);* $(;)?) => {
+        benches!(
+            $(
+                $(
+                    Bench::new(concat!(stringify!($day_mod), "::", stringify!($part_fn)))
+                        .with_samples($samples)
+                        .run(|| $day_mod::$part_fn()),
+                )*
+                Bench::spacer(),
+            )*
+        );
+    };
+}
+
+bench_day_parts! {
+    day01: 10_000 => run_part1, run_part2, run_part3;
+}
